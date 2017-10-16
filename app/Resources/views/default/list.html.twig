@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista sal</h1>
+    <hr/>
+    {% for classroom in classrooms %}
+        <div>
+            <h3>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h3>
+            <p>Nazwa sali: {{ classroom.name }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sala {{ classroom.number }}</h1>
+    <div>
+        <p>{{ classroom.name }}</p>
+        <hr/>
+        <h3>Rezerwacje:</h3>
+        {% if classroom.reservations is empty %}
+            Brak
+        {% else%}
+            {% for reservation in classroom.reservations %}
+            <div class="well well-sm">
+                <p>Dzień: {{ reservation.day }}</p>
+                <span>
+                    Od: {{ reservation.timeFrom }} do: {{ reservation.timeTo }}
+                </span>
+                <br/>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <hr/>
+        <h4>Zarezerwuj tę salę</h4>
+        
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            
+            <button class="btn btn-primary">Rezerwuj</button>
+        {{ form_end(form) }}
+        
+        <a href="{{ path('list_classroom')}}" class="pull-right">Wróć do listy sal</a>
+    </div>
+{% endblock %}
+
