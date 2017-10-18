@@ -1,9 +1,126 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Widok sali{% endblock %}
+
+{% block  mystyle %}
+<link rel="stylesheet" href="{{ asset('css/classroom.css') }}" >
+{% endblock %}
+
 {% block body %}
     <h1>Sala {{ classroom.number }}</h1>
     <div>
         <p>{{ classroom.name }}</p>
+        <hr/>
+                <div class="container container__table">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-inverse table-striped">
+                      <thead>
+                        <tr>
+                          <th class="th--no-border"></th>
+                          <th class="th--center">Poniedziałek</th>
+                          <th class="th--center">Wtorek</th>
+                          <th class="th--center">Środa</th>
+                          <th class="th--center">Czwartek</th>
+                          <th class="th--center">Piątek</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" class="th--center th--height">8.00 - 9.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">9.00 - 10.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">10.00 - 11.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">11.00 - 12.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">12.00 - 13.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">13.00 - 14.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">14.00 - 15.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">15.00 - 16.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">16.00 - 17.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">17.00 - 18.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="th--center th--height">18.00 - 19.00</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
         <hr/>
         <h3>Rezerwacje:</h3>
         {% if classroom.reservations is empty %}

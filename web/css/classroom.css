@@ -1,0 +1,45 @@
+body{
+	background-color: #ffffff;
+}
+
+h1{
+	  text-align: center;
+}
+
+.h1__classroom{
+	color: #cacaca;
+    font-weight: bold;
+}
+
+.container__title{
+	    margin-top: 30px;
+}
+
+.container__table{
+	    margin-top: 30px;
+}
+
+th{
+	width: 15%;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+	    border: 1px solid #ddd;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+th.th--center{
+	text-align: center;
+}
+
+th.th--no-border{
+	border-left: 0px !important;
+}
+
+th.th--height{
+	height: 65px;
+    padding-top: 24px !important;
+}
