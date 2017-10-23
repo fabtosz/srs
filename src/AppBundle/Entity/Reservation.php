@@ -50,6 +50,14 @@ class Reservation
     private $classroom;
     
     /**
+     * @var
+     * 
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="reservations")   
+     * @ORM\JoinColumn(name="user_id", nullable=true)  
+     */
+    private $user;
+    
+    /**
      * Get id
      *
      * @return int
@@ -153,5 +161,28 @@ class Reservation
     public function getClassroom()
     {
         return $this->classroom;
+    }
+    
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Reservation
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
+    
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

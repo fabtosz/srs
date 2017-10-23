@@ -19,3 +19,20 @@ Instrukcja dla kontrybutorów:
 	php bin/console server:run
 
 Chyba wszystko. Jak coś nie będzie działać albo o czymś zapomniałem to priv :)
+
+[Aktualizacja 23-10-2017r.]
+
+Po zmianach w encjach projektu (łącznie z utworzeniem nowych lub usuwaniem) należy użyć komendy
+	php bin/console doctrine:schema:update --force
+Dodatkowo sugeruję usunięcie wszystkich starych rekordów z aktualizowanej dzięki encji tabeli wszystkich nieaktualnych rekordów odpowiednim zapytaniem SQL.
+
+Po doinstalowaniu dodatkowego bundla w projekcie, po użyciu git pull należy wpisać komendę
+	composer update
+Zaś po sklonowaniu
+	composer install
+
+Aby dodać użytkownika do bazy danych należy użyć komendy
+	php bin/console fos:user:create login mail haslo
+Aby przypisać użytkownikowi rolę admina należy na istniejącym użytkowniku użyć komendy
+	php app/console fos:user:promote wybrany_login_uzytkownika ROLE_ADMIN
+

@@ -128,11 +128,11 @@
         {% else%}
             {% for reservation in classroom.reservations %}
             <div class="well well-sm">
-                <p>Dzień: {{ reservation.day }}</p>
-                <span>
-                    Od: {{ reservation.timeFrom }} do: {{ reservation.timeTo }}
-                </span>
+                Dzień: {{ reservation.day }}
                 <br/>
+                Od: {{ reservation.timeFrom }} do: {{ reservation.timeTo }}
+                <br/>
+                {% if reservation.user %}Zarezerwowano przez: {{ reservation.user }}{% endif %}
             </div>
             {% endfor %}
         {% endif %}
@@ -140,11 +140,15 @@
         <hr/>
         <h4>Zarezerwuj tę salę</h4>
         
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
+        {% if app.user %}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
             
-            <button class="btn btn-primary">Rezerwuj</button>
-        {{ form_end(form) }}
+                <button class="btn btn-primary">Rezerwuj</button>
+            {{ form_end(form) }}
+        {% else %}
+            <p>Rezerwacji mogą dokonać tylko zalogowani użytkownicy. <a href="{{ path('fos_user_security_login')}}">Zaloguj się</a></p>
+        {% endif %}
         
         <a href="{{ path('list_classroom')}}" class="pull-right">Wróć do listy sal</a>
     </div>

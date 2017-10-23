@@ -10,6 +10,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {# Login panel #}
+        <div style="background-color: gray;">
+            {%if app.user %}
+                Zalogowany jako {% if is_granted('ROLE_ADMIN') %} ADMINISTRATOR -> <a href="{{ path('admin') }}">panel</a>{% else %} {{ app.user }}{% endif %} | <a href="{{ path('fos_user_security_logout')}}">Wyloguj się</a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login')}}">Zaloguj się</a>
+            {% endif%}
+        </div>
         <div class="container">
             {% block body %}
                 <a href="{{ path('list_classroom')}}">Lista sal</a>

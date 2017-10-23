@@ -19,9 +19,46 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var
+     * 
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="user")     
+     */
+    private $reservations;
+    
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+    }
+    
+    /**
+     * Add reservation
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return User
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+        return $this;
+    }
+    /**
+     * Remove reservation
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
+    }
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }
