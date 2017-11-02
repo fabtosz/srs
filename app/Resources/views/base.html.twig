@@ -5,18 +5,57 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            {% block mystyle %}{% endblock %}
+            {% block mystyle %}
+                <link rel="stylesheet" href="{{ asset('css/index.css') }}" >
+            {% endblock %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {# Login panel #}
-        <div style="background-color: gray;">
-            {%if app.user %}
-                Zalogowany jako {% if is_granted('ROLE_ADMIN') %} ADMINISTRATOR -> <a href="{{ path('admin') }}">panel</a>{% else %} {{ app.user }}{% endif %} | <a href="{{ path('fos_user_security_logout')}}">Wyloguj się</a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login')}}">Zaloguj się</a>
-            {% endif%}
+
+        
+        <div class="pageHeader">
+            <div class="container">
+
+                <div class="row">
+                              <div class="col-md-4 col-sm-4 logo">
+                                <a href="">
+                                    <img class="pageHeader__logo-img" src="{{ asset('images/logo2.png') }}" />
+                                </a>
+                              </div>
+                              <div class="col-md-8 col-sm-8 pageHeader__title">
+                                  <h1 class="pageHeader__title">System rezerwacji sal</h1>
+                              </div>
+                            
+
+                </div>
+            </div>
+        </div>
+        <div class="navbar-all">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                              <ul class="nav navbar-nav">
+                                
+                                    {%if app.user %}
+                                        <div class="nav-log">
+                                            
+                                        
+                                        Zalogowany jako {% if is_granted('ROLE_ADMIN') %} ADMINISTRATOR -> <a href="{{ path('admin') }}">panel</a>{% else %} {{ app.user }}{% endif %} | <a href="{{ path('fos_user_security_logout')}}" class="logout-href">Wyloguj się</a>
+                                        </div>
+                                    {% else %}
+                                    <li class="active">
+                                        <a href="{{ path('fos_user_security_login')}}" class="login-href" >Zaloguj się</a>
+                                    </li>
+                                    {% endif%}
+                                    
+                              </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
         </div>
         <div class="container">
             {% block body %}
