@@ -1,0 +1,108 @@
+/*HEADER*/
+
+.pageHeader {
+    height: 145px;
+    min-width: 960px;
+    background-color: #1c1c1c;
+    border-bottom: 1px solid #565454;
+}
+
+.logo{
+    padding-top: 10px;
+}
+
+.pageHeader__title{
+    color: white;
+    padding-top: 20px;
+}
+
+
+/* NAVBAR */
+
+nav.navbar.navbar-default.navbar-inverse{
+    height: 48px !important;
+}
+
+.navbar-all{
+    background-color: #222222;
+    height: 50px;
+    border-bottom: 5px solid #cfa676;
+}
+
+.navbar{
+	color:white;
+    border-radius: 0px !important;
+    border: 0px solid transparent !important;
+    margin-bottom: 0px !important;
+    border-bottom: 5px solid #cfa676 !important;
+}
+
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+	    background-color: #222222 !important;
+}
+
+
+.login-href{
+	font-weight: bold;
+    height: 45px;
+}
+
+.logout-href{
+	color: white;
+}
+
+.nav-log{
+	padding-top: 11px;
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
