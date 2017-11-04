@@ -41,6 +41,8 @@ class DefaultController extends Controller
     {
         $form = null;
         
+        $reservations = $classroom->getReservations();
+        
         if($user = $this->getUser()){
             
             $reservation = new Reservation();
@@ -59,63 +61,38 @@ class DefaultController extends Controller
             }
         }
         
+        $timetableModel = array(
+            'monday' => array(
+                array('start' => 2, 'duration' => 3),
+                array('start' => 5, 'duration' => 1),
+                array('start' => 8, 'duration' => 2)
+            ),
+            'tuesday' => array(
+                array('start' => 1, 'duration' => 1),
+                array('start' => 4, 'duration' => 1),
+                array('start' => 6, 'duration' => 1)
+            ),
+            'wednesday' => array(
+                array('start' => 1, 'duration' => 3),
+                array('start' => 4, 'duration' => 3),
+                array('start' => 8, 'duration' => 2)
+            ),
+            'thursday' => array(
+                array('start' => 1, 'duration' => 5),
+                array('start' => 6, 'duration' => 5)
+            ),
+            'friday' => array(
+                array('start' => 3, 'duration' => 2),
+                array('start' => 7, 'duration' => 1),
+                array('start' => 9, 'duration' => 3)
+            )
+        );
+   
+        
         return $this->render('default/show.html.twig', array(
             'classroom' => $classroom,
-            'form' => is_null($form) ? $form : $form->createView()
+            'form' => is_null($form) ? $form : $form->createView(),
+            'timetable_model' => $timetableModel
         ));
-        /*
-        $reservation = new Reservation();
-        $reservation->setClassroom($classroom);
-
-        $form = $this->createForm(ReservationType::class, $reservation);
-
-        $form->handleRequest($request);
-
-        if($form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reservation);
-            $em->flush();
-
-            $this->redirectToRoute('classroom', array('id' => $classroom->getId()));
-        }
-
-        return $this->render('default/show.html.twig', array(
-            'classroom' => $classroom,
-            'form' => $form->createView()
-        ));
-        */
     }
 }
-/*
-public function showAction(Post $post, Request $request)
-    {   
-        $form = null;
-        
-        //jesli uzytkownik jest zalogowany
-        if($user = $this->getUser()){
-            
-            $comment = new Comment();
-            $comment->setPost($post);
-        
-            $comment->setUser($user);
-            
-            $form = $this->createForm(CommentType::class, $comment);
-        
-            $form->handleRequest($request);
-        
-            if($form->isValid()){
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();
-                $this->addFlash('success', 'Komentarz został dodany');
-                $this->redirectToRoute('article', array('id' => $post->getId()));
-            }
-        }
-        
-        
-        return $this->render('default/show.html.twig', array(
-            'post' => $post,
-            'form' => is_null($form) ? $form : $form->createView()
-        ));
-    }
- *  */
