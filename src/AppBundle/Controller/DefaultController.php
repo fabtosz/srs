@@ -111,6 +111,13 @@ class DefaultController extends Controller
             
         }
         
+        // Sortuj rezerwacje po godzinie ich zaczecia
+        foreach($timetableModel as $tm) {
+            usort($tm, function($a, $b) {
+                return $a['start'] - $b['start'];
+            });
+        }
+        
         return $timetableModel;
     }
 }
