@@ -61,38 +61,56 @@ class DefaultController extends Controller
             }
         }
         
-        $timetableModel = array(
-            'monday' => array(
-                array('start' => 2, 'duration' => 3),
-                array('start' => 5, 'duration' => 1),
-                array('start' => 8, 'duration' => 2)
-            ),
-            'tuesday' => array(
-                array('start' => 1, 'duration' => 1),
-                array('start' => 4, 'duration' => 1),
-                array('start' => 6, 'duration' => 1)
-            ),
-            'wednesday' => array(
-                array('start' => 1, 'duration' => 3),
-                array('start' => 4, 'duration' => 3),
-                array('start' => 8, 'duration' => 2)
-            ),
-            'thursday' => array(
-                array('start' => 1, 'duration' => 5),
-                array('start' => 6, 'duration' => 5)
-            ),
-            'friday' => array(
-                array('start' => 3, 'duration' => 2),
-                array('start' => 7, 'duration' => 1),
-                array('start' => 9, 'duration' => 3)
-            )
-        );
-   
+        $timetableModel = $this->prepareTimetableModel($reservations);
         
         return $this->render('default/show.html.twig', array(
             'classroom' => $classroom,
             'form' => is_null($form) ? $form : $form->createView(),
             'timetable_model' => $timetableModel
         ));
+    }
+    
+    private function prepareTimetableModel($reservations){
+        
+        $timetableModel = array(
+            'monday' => array(),
+            'tuesday' => array(),
+            'wednesday' => array(),
+            'thursday' => array(),
+            'friday' => array()
+        );
+        
+        foreach($reservations as $reservation){
+            
+            // Jednostka jest polozenie komorki nie zas sama godzina
+            $start = ((int)(str_replace(array(':00'),'',$reservation->getTimeFrom()))) - 7;
+            $end = ((int)(str_replace(array(':00'),'',$reservation->getTimeTo()))) - 7;
+            $duration = $end - $start;
+            
+            // Konwertuj polski dzien na angielski
+            $day = '';
+            switch ($reservation->getDay()) {
+                case 'Poniedziałek':
+                    $day = 'monday';
+                    break;
+                case 'Wtorek':
+                    $day = 'tuesday';
+                    break;
+                case 'Środa':
+                    $day = 'wednesday';
+                    break;
+                case 'Czwartek':
+                    $day = 'thursday';
+                    break;
+                case 'Piątek':
+                    $day = 'friday';
+                    break;
+            }
+            
+            array_push($timetableModel[$day], array('start' => $start, 'duration' => $duration));
+            
+        }
+        
+        return $timetableModel;
     }
 }
