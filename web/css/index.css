@@ -52,6 +52,11 @@ nav.navbar.navbar-default.navbar-inverse{
 	color: white;
 }
 
+.logout-href:hover{
+    color: white !important;
+    text-decoration: none !important;
+}
+
 .nav-log{
 	padding-top: 11px;
 }
