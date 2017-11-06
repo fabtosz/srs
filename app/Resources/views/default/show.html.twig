@@ -20,11 +20,11 @@
         {# Rysuj rezerwacje #}
         <tr>
             {% if reservation.duration == 1 %}
-                <td bgcolor="gray">Rezerwacja</td>
+                <td bgcolor="#CFA676">Rezerwacja</td>
                 <td style="visibility:hidden; width: 1px; border:0px;"></td>
                 {% set cells = cells + 1 %}
             {% else %} 
-                <td rowspan="{{ reservation.duration }}" bgcolor="orchid">Rezerwacja</td>{% set rowspan = (reservation.duration) %}
+                <td rowspan="{{ reservation.duration }}" bgcolor="#CFA676">Rezerwacja</td>{% set rowspan = (reservation.duration) %}
                 <td style="visibility:hidden; width: 1px; border:0px;"></td>
                 {% set cells = cells + 1 %}
                 {% for i in 1..(rowspan - 1)%}
@@ -57,181 +57,73 @@
 {% endblock %}
 
 {% block body %}
-   <table class="srs_timetable">
-       <tr>
-           <th></th>
-           <th>Poniedziałek</th>
-           <th>Wtorek</th>
-           <th>Środa</th>
-           <th>Czwartek</th>
-           <th>Piątek</th>
-       </tr>
-       <tr>
-           <td>
-               {# Tabelka godzin #}
-               <table>
-                    <tr>
-                        <td>08:00 - 09:00</td>
-                    </tr>
-                    <tr>
-                        <td>09:00 - 10:00</td>
-                    </tr>
-                    <tr>
-                        <td>10:00 - 11:00</td>
-                    </tr>
-                    <tr>
-                        <td>11:00 - 12:00</td>
-                    </tr>
-                    <tr>
-                        <td>12:00 - 13:00</td>
-                    </tr>
-                    <tr>
-                        <td>13:00 - 14:00</td>
-                    </tr>
-                    <tr>
-                        <td>14:00 - 15:00</td>
-                    </tr>
-                    <tr>
-                        <td>15:00 - 16:00</td>
-                    </tr>
-                    <tr>
-                        <td>16:00 - 17:00</td>
-                    </tr>
-                    <tr>
-                        <td>17:00 - 18:00</td>
-                    </tr>
-                    <tr>
-                        <td>18:00 - 19:00</td>
-                    </tr>
-                    <tr>
-                        <td>19:00 - 20:00</td>
-                    </tr>
-                    <tr>
-                        <td>20:00 - 21:00</td>
-                    </tr>
-               </table>
-           </td>
-           <td>{{ my_macro.timetable(timetable_model.monday) }}</td>
-           <td>{{ my_macro.timetable(timetable_model.tuesday) }}</td>
-           <td>{{ my_macro.timetable(timetable_model.wednesday) }}</td>
-           <td>{{ my_macro.timetable(timetable_model.thursday) }}</td>
-           <td>{{ my_macro.timetable(timetable_model.friday) }}</td>
-       </tr>
-   </table>
     <h1>Sala {{ classroom.number }}</h1>
     <div>
         <p>{{ classroom.name }}</p>
         <hr/>
-                <div class="container container__table">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered table-inverse table-striped">
-                      <thead>
-                        <tr>
-                          <th class="th--no-border"></th>
-                          <th class="th--center">Poniedziałek</th>
-                          <th class="th--center">Wtorek</th>
-                          <th class="th--center">Środa</th>
-                          <th class="th--center">Czwartek</th>
-                          <th class="th--center">Piątek</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row" class="th--center th--height">8.00 - 9.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">9.00 - 10.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">10.00 - 11.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">11.00 - 12.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">12.00 - 13.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">13.00 - 14.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">14.00 - 15.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">15.00 - 16.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">16.00 - 17.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">17.00 - 18.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="th--center th--height">18.00 - 19.00</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                      </tbody>
+        
+        <table class="srs_timetable">
+            <tr>
+                <th></th>
+                <th>Poniedziałek</th>
+                <th>Wtorek</th>
+                <th>Środa</th>
+                <th>Czwartek</th>
+                <th>Piątek</th>
+            </tr>
+            <tr>
+                <td>
+                    {# Tabelka godzin #}
+                    <table>
+                         <tr>
+                             <td>08:00 - 09:00</td>
+                         </tr>
+                         <tr>
+                             <td>09:00 - 10:00</td>
+                         </tr>
+                         <tr>
+                             <td>10:00 - 11:00</td>
+                         </tr>
+                         <tr>
+                             <td>11:00 - 12:00</td>
+                         </tr>
+                         <tr>
+                             <td>12:00 - 13:00</td>
+                         </tr>
+                         <tr>
+                             <td>13:00 - 14:00</td>
+                         </tr>
+                         <tr>
+                             <td>14:00 - 15:00</td>
+                         </tr>
+                         <tr>
+                             <td>15:00 - 16:00</td>
+                         </tr>
+                         <tr>
+                             <td>16:00 - 17:00</td>
+                         </tr>
+                         <tr>
+                             <td>17:00 - 18:00</td>
+                         </tr>
+                         <tr>
+                             <td>18:00 - 19:00</td>
+                         </tr>
+                         <tr>
+                             <td>19:00 - 20:00</td>
+                         </tr>
+                         <tr>
+                             <td>20:00 - 21:00</td>
+                         </tr>
                     </table>
-                </div>
-            </div>
-        </div>
-
-
+                </td>
+                <td>{{ my_macro.timetable(timetable_model.monday) }}</td>
+                <td>{{ my_macro.timetable(timetable_model.tuesday) }}</td>
+                <td>{{ my_macro.timetable(timetable_model.wednesday) }}</td>
+                <td>{{ my_macro.timetable(timetable_model.thursday) }}</td>
+                <td>{{ my_macro.timetable(timetable_model.friday) }}</td>
+            </tr>
+        </table>
+            
         <hr/>
         <h3>Rezerwacje:</h3>
         {% if classroom.reservations is empty %}
