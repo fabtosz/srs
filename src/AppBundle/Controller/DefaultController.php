@@ -41,6 +41,8 @@ class DefaultController extends Controller
     {
         $form = null;
         
+        $reservations = $classroom->getReservations();
+        
         if($user = $this->getUser()){
             
             $reservation = new Reservation();
@@ -59,63 +61,56 @@ class DefaultController extends Controller
             }
         }
         
+        $timetableModel = $this->prepareTimetableModel($reservations);
+        
         return $this->render('default/show.html.twig', array(
             'classroom' => $classroom,
-            'form' => is_null($form) ? $form : $form->createView()
+            'form' => is_null($form) ? $form : $form->createView(),
+            'timetable_model' => $timetableModel
         ));
-        /*
-        $reservation = new Reservation();
-        $reservation->setClassroom($classroom);
-
-        $form = $this->createForm(ReservationType::class, $reservation);
-
-        $form->handleRequest($request);
-
-        if($form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reservation);
-            $em->flush();
-
-            $this->redirectToRoute('classroom', array('id' => $classroom->getId()));
+    }
+    
+    private function prepareTimetableModel($reservations){
+        
+        $timetableModel = array(
+            'monday' => array(),
+            'tuesday' => array(),
+            'wednesday' => array(),
+            'thursday' => array(),
+            'friday' => array()
+        );
+        
+        foreach($reservations as $reservation){
+            
+            // Jednostka jest polozenie komorki nie zas sama godzina
+            $start = ((int)(str_replace(array(':00'),'',$reservation->getTimeFrom()))) - 7;
+            $end = ((int)(str_replace(array(':00'),'',$reservation->getTimeTo()))) - 7;
+            $duration = $end - $start;
+            
+            // Konwertuj polski dzien na angielski
+            $day = '';
+            switch ($reservation->getDay()) {
+                case 'Poniedziałek':
+                    $day = 'monday';
+                    break;
+                case 'Wtorek':
+                    $day = 'tuesday';
+                    break;
+                case 'Środa':
+                    $day = 'wednesday';
+                    break;
+                case 'Czwartek':
+                    $day = 'thursday';
+                    break;
+                case 'Piątek':
+                    $day = 'friday';
+                    break;
+            }
+            
+            array_push($timetableModel[$day], array('start' => $start, 'duration' => $duration));
+            
         }
-
-        return $this->render('default/show.html.twig', array(
-            'classroom' => $classroom,
-            'form' => $form->createView()
-        ));
-        */
+        
+        return $timetableModel;
     }
 }
-/*
-public function showAction(Post $post, Request $request)
-    {   
-        $form = null;
-        
-        //jesli uzytkownik jest zalogowany
-        if($user = $this->getUser()){
-            
-            $comment = new Comment();
-            $comment->setPost($post);
-        
-            $comment->setUser($user);
-            
-            $form = $this->createForm(CommentType::class, $comment);
-        
-            $form->handleRequest($request);
-        
-            if($form->isValid()){
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();
-                $this->addFlash('success', 'Komentarz został dodany');
-                $this->redirectToRoute('article', array('id' => $post->getId()));
-            }
-        }
-        
-        
-        return $this->render('default/show.html.twig', array(
-            'post' => $post,
-            'form' => is_null($form) ? $form : $form->createView()
-        ));
-    }
- *  */

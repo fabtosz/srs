@@ -1,0 +1,11 @@
+.srs_timetable {
+    margin: 0px;
+    padding: 0px;
+    border-collapse: collapse;
+    text-align: center;
+}
+.srs_timetable td, th {width: 170px; height: 40px; border: 1px solid #cccccc; }
+
+.srs_timetable th {
+    text-align: center;
+}

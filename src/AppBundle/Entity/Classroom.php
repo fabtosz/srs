@@ -39,7 +39,8 @@ class Classroom
     /**
     * @var
     * 
-    * @ORM\OneToMany(targetEntity="Reservation", mappedBy="classroom")     
+    * @ORM\OneToMany(targetEntity="Reservation", mappedBy="classroom")  
+    * @ORM\OrderBy({"timeFrom" = "ASC"})   
     */
     private $reservations;
 
