@@ -61,7 +61,9 @@
     <div>
         <p>{{ classroom.name }}</p>
         <hr/>
-        
+        <div class="container">
+        <div class="row">
+
         <table class="srs_timetable">
             <tr>
                 <th></th>
@@ -123,7 +125,8 @@
                 <td>{{ my_macro.timetable(timetable_model.friday) }}</td>
             </tr>
         </table>
-            
+            </div>
+            </div>
         <hr/>
         <h3>Rezerwacje:</h3>
         {% if classroom.reservations is empty %}
