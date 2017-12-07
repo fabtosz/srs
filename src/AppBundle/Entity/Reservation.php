@@ -22,27 +22,6 @@ class Reservation
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="day", type="string", length=255)
-     */
-    private $day;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="time_from", type="string", length=255)
-     */
-    private $timeFrom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="time_to", type="string", length=255)
-     */
-    private $timeTo;
-
-    /**
     * @var
     * 
     * @ORM\ManyToOne(targetEntity="Classroom", inversedBy="reservations")     
@@ -57,6 +36,43 @@ class Reservation
      */
     private $user;
     
+    /************************************************/
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="data", type="date")
+     */
+    private $date;
+    /************************************************/
+    /************************************************/
+    /**
+     * @var time
+     *
+     * @ORM\Column(name="hour", type="time")
+     */
+    private $hour;
+    /************************************************/
+    /************************************************/
+    /**
+     *
+     * @ORM\Column(name="duration", type="smallint")
+     */
+    private $duration;
+    /************************************************/
+    /************************************************/
+    /**
+     *
+     * @ORM\Column(name="genre", type="string")
+     */
+    private $genre;
+    /************************************************/
+    /************************************************/
+    /**
+     *
+     * @ORM\Column(name="overload", type="smallint")
+     */
+    private $overload;
+    /************************************************/
     /**
      * Get id
      *
@@ -65,78 +81,6 @@ class Reservation
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set day
-     *
-     * @param string $day
-     *
-     * @return Reservation
-     */
-    public function setDay($day)
-    {
-        $this->day = $day;
-
-        return $this;
-    }
-
-    /**
-     * Get day
-     *
-     * @return string
-     */
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
-     * Set timeFrom
-     *
-     * @param string $timeFrom
-     *
-     * @return Reservation
-     */
-    public function setTimeFrom($timeFrom)
-    {
-        $this->timeFrom = $timeFrom;
-
-        return $this;
-    }
-
-    /**
-     * Get timeFrom
-     *
-     * @return string
-     */
-    public function getTimeFrom()
-    {
-        return $this->timeFrom;
-    }
-
-    /**
-     * Set timeTo
-     *
-     * @param string $timeTo
-     *
-     * @return Reservation
-     */
-    public function setTimeTo($timeTo)
-    {
-        $this->timeTo = $timeTo;
-
-        return $this;
-    }
-
-    /**
-     * Get timeTo
-     *
-     * @return string
-     */
-    public function getTimeTo()
-    {
-        return $this->timeTo;
     }
 
     /**
@@ -185,4 +129,95 @@ class Reservation
     {
         return $this->user;
     }
+    
+    /***************************************/
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+    /***************************************/
+    /***************************************/
+    public function setHour($hour)
+    {
+        $this->hour = $hour;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getHour()
+    {
+        return $this->hour;
+    }
+    /***************************************/
+    /***************************************/
+    public function setDuration($duration)
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+    /***************************************/
+    /***************************************/
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+    /***************************************/
+    /***************************************/
+    public function setOverload($overload)
+    {
+        $this->overload = $overload;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getOverload()
+    {
+        return $this->overload;
+    }
+    /***************************************/
 }

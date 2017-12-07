@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Classroom;
 use AppBundle\Entity\Reservation;
 use AppBundle\Form\ReservationType;
+use \DateTime;
 
 class DefaultController extends Controller
 {
@@ -34,15 +35,43 @@ class DefaultController extends Controller
         ));
     }
     
+    /* * ("/classroom/{id}/week/{week}", name="classroom", defaults={"week"=null})*/
+    
     /**
      * @Route("/classroom/{id}", name="classroom")
      */
     public function showAction(Classroom $classroom, Request $request)
     {
         $form = null;
+       
+        if($request->query->get('week') == null) {
+            $now = new DateTime();
+            $currentWeekNumber = $now->format("W");
+        } else {
+            $currentWeekNumber = $request->query->get('week');
+        }
         
-        $reservations = $classroom->getReservations();
+        $reservations = $this->getDoctrine()
+        ->getRepository(Reservation::class)
+        ->findAllWeekNumber($classroom->getId(), $currentWeekNumber);
         
+        $datesOfWeeks = array();
+        for($i=40; $i<=52; $i++){
+            $dateBegin = new DateTime(date('d-m-Y',strtotime('2017W'.$i)));
+            array_push($datesOfWeeks, $dateBegin->format('d-m-Y'));
+            $dateEnd = $dateBegin->modify('+4 day');
+            array_push($datesOfWeeks, $dateEnd->format('d-m-Y'));
+        }
+        dump($datesOfWeeks);
+        //Data poczatku roku 2017
+        $dateBeginYear = new DateTime(date('d-m-Y',strtotime('2017W01')));
+        
+        //Aktualny tydzień
+        $dto = new DateTime();
+        //$currentDate = $dto->setISODate(2017, $currentWeekNumber)->format('d F Y');
+        $currentDate = $dto->setISODate(2017, $currentWeekNumber);
+        
+        //dump($datesOfWeeks); //Do zrbienia linków tygodni
         if($user = $this->getUser()){
             
             $reservation = new Reservation();
@@ -62,11 +91,15 @@ class DefaultController extends Controller
         }
         
         $timetableModel = $this->prepareTimetableModel($reservations);
-        
+       
         return $this->render('default/show.html.twig', array(
             'classroom' => $classroom,
             'form' => is_null($form) ? $form : $form->createView(),
-            'timetable_model' => $timetableModel
+            'timetable_model' => $timetableModel,
+            'datesOfWeeks' => $datesOfWeeks,
+            'currentDate' => $currentDate,
+            'dateBeginYear' => $dateBeginYear,
+            'currentWeekNumber' => $currentWeekNumber
         ));
     }
     
@@ -82,35 +115,15 @@ class DefaultController extends Controller
         
         foreach($reservations as $reservation){
             
-            // Jednostka jest polozenie komorki nie zas sama godzina
-            $start = ((int)(str_replace(array(':00'),'',$reservation->getTimeFrom()))) - 7;
-            $end = ((int)(str_replace(array(':00'),'',$reservation->getTimeTo()))) - 7;
-            $duration = $end - $start;
-            
-            // Konwertuj polski dzien na angielski
-            $day = '';
-            switch ($reservation->getDay()) {
-                case 'Poniedziałek':
-                    $day = 'monday';
-                    break;
-                case 'Wtorek':
-                    $day = 'tuesday';
-                    break;
-                case 'Środa':
-                    $day = 'wednesday';
-                    break;
-                case 'Czwartek':
-                    $day = 'thursday';
-                    break;
-                case 'Piątek':
-                    $day = 'friday';
-                    break;
-            }
+            $start = ($reservation->getHour()->format('H')) - 7;
+            $duration = $reservation->getDuration();
+            $day = strtolower($reservation->getDate()->format('l'));
             
             array_push($timetableModel[$day], array('start' => $start, 'duration' => $duration));
             
         }
         
         return $timetableModel;
+        
     }
 }
