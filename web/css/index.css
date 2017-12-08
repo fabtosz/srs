@@ -111,3 +111,7 @@ nav.navbar.navbar-default.navbar-inverse{
         border-top:0 none;
     }
 }
+
+.flash-success{
+    display: none;
+}
