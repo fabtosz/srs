@@ -71,7 +71,6 @@
         
         <a href="{{ path('list_classroom')}}" class="pull-right">Wróć do listy sal</a>
         <hr/>
-        {{dump(app.flashes)}}
         {# Flash message #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
