@@ -63,12 +63,23 @@
 
 
     <h1>Sala {{ classroom.number }}</h1>
+    
+    
+
     <div>
         <p>{{ classroom.name }}</p>
         
         <a href="{{ path('list_classroom')}}" class="pull-right">Wróć do listy sal</a>
         <hr/>
-        
+        {# Flash message #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
         <h5>
             <b>{{ currentDate|date('d F Y') }}</b>
             --  
