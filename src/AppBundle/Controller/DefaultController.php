@@ -62,7 +62,6 @@ class DefaultController extends Controller
             $dateEnd = $dateBegin->modify('+4 day');
             array_push($datesOfWeeks, $dateEnd->format('d-m-Y'));
         }
-        dump($datesOfWeeks);
         //Data poczatku roku 2017
         $dateBeginYear = new DateTime(date('d-m-Y',strtotime('2017W01')));
         
@@ -70,6 +69,8 @@ class DefaultController extends Controller
         $dto = new DateTime();
         //$currentDate = $dto->setISODate(2017, $currentWeekNumber)->format('d F Y');
         $currentDate = $dto->setISODate(2017, $currentWeekNumber);
+        
+        $timetableModel = $this->prepareTimetableModel($reservations);
         
         //dump($datesOfWeeks); //Do zrbienia linków tygodni
         if($user = $this->getUser()){
@@ -86,11 +87,16 @@ class DefaultController extends Controller
                 $em->persist($reservation);
                 $em->flush();
 
-                $this->redirectToRoute('classroom', array('id' => $classroom->getId()));
+                $this->addFlash(
+                    'notice',
+                    'Zarezerwowano salę!'
+                );
+                
+                return $this->redirectToRoute('classroom', array('id' => $classroom->getId()));
             }
         }
         
-        $timetableModel = $this->prepareTimetableModel($reservations);
+        
        
         return $this->render('default/show.html.twig', array(
             'classroom' => $classroom,
@@ -100,6 +106,15 @@ class DefaultController extends Controller
             'currentDate' => $currentDate,
             'dateBeginYear' => $dateBeginYear,
             'currentWeekNumber' => $currentWeekNumber
+        ));
+    }
+    
+    /**
+     * @Route("/success", name="success")
+     */
+    public function successAction(){
+        
+        return $this->render('default/success.html.twig', array(
         ));
     }
     
@@ -125,5 +140,11 @@ class DefaultController extends Controller
         
         return $timetableModel;
         
+    }
+    
+    private function validateReservation($toValidate, $reservations){
+        
+        //Sprawdź czy godzina rozpoczęcia nie jest zaj
+        $reservationPlan = array();
     }
 }
