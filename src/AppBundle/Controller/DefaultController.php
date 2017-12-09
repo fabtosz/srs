@@ -137,6 +137,15 @@ class DefaultController extends Controller
     private function validate($toValidate, $model){
         
         $day = strtolower($toValidate->getDate()->format('l'));
+        
+        if($day == 'saturday' || $day == 'sunday'){
+            $this->addFlash(
+                'danger',
+                'Nie można rezerwować w sobotę i niedzielę.'
+            );
+            return 0;
+        }
+        
         $startHour = $toValidate->getHour()->format('H') - 7;
         $duration = $toValidate->getDuration();
         
@@ -168,7 +177,7 @@ class DefaultController extends Controller
                 $plan[$i-1] = 1;
             }
         }
-        dump($plan);
+        
         //Sprawdz czy nowa rezerwacja nie zaczyna sie w trakcie trwania innej rezerwacji
         for($i = $startHour; $i < $startHour + $startHour; $i++){
             if($plan[$i-1] != 0){
