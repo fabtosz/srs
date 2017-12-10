@@ -35,6 +35,20 @@ class Classroom
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="block", type="string", length=255)
+     */
+    private $block;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="floor", type="string", length=255)
+     */
+    private $floor;
     
     /**
     * @var
@@ -142,5 +156,41 @@ class Classroom
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    public function setBlock($block)
+    {
+        $this->block = $block;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getBlock()
+    {
+        return $this->block;
+    }
+
+
+
+    public function setFloor($floor)
+    {
+        $this->floor = $floor;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getFloor()
+    {
+        return $this->floor;
     }
 }
