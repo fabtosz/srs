@@ -72,6 +72,7 @@ class DefaultController extends Controller
         
         $timetableModel = $this->prepareTimetableModel($reservations);
         
+        
         //dump($datesOfWeeks); //Do zrbienia linków tygodni
         if($user = $this->getUser()){
             
@@ -82,13 +83,13 @@ class DefaultController extends Controller
             $form = $this->createForm(ReservationType::class, $reservation);
             $form->handleRequest($request);
             
-            if($form->isValid()){
+            if($form->isValid() && $this->validate($reservation, $timetableModel)){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($reservation);
                 $em->flush();
 
                 $this->addFlash(
-                    'notice',
+                    'success',
                     'Zarezerwowano salę!'
                 );
                 
@@ -106,15 +107,6 @@ class DefaultController extends Controller
             'currentDate' => $currentDate,
             'dateBeginYear' => $dateBeginYear,
             'currentWeekNumber' => $currentWeekNumber
-        ));
-    }
-    
-    /**
-     * @Route("/success", name="success")
-     */
-    public function successAction(){
-        
-        return $this->render('default/success.html.twig', array(
         ));
     }
     
@@ -142,9 +134,61 @@ class DefaultController extends Controller
         
     }
     
-    private function validateReservation($toValidate, $reservations){
+    private function validate($toValidate, $model){
         
-        //Sprawdź czy godzina rozpoczęcia nie jest zaj
-        $reservationPlan = array();
+        $day = strtolower($toValidate->getDate()->format('l'));
+        
+        if($day == 'saturday' || $day == 'sunday'){
+            $this->addFlash(
+                'danger',
+                'Nie można rezerwować w sobotę i niedzielę.'
+            );
+            return 0;
+        }
+        
+        $startHour = $toValidate->getHour()->format('H') - 7;
+        $duration = $toValidate->getDuration();
+        
+        //Sprawdż czy czas nie przekracza limitu w planie
+        $availbaleHours = 14 - $startHour;
+        if($duration > $availbaleHours){
+            $this->addFlash(
+                'danger',
+                'Nie ma tyle dostępnych godzin w planie.'
+            );
+            return 0;
+        }
+        
+        //Sprawdź czy godzina rozpoczęcia nie jest zajęta
+        foreach ($model[$day] as $key => $value){
+            if($value['start'] == $startHour){
+                $this->addFlash(
+                    'danger',
+                    'Na tę godzinę już jest zajęta sala.'
+                );
+                return 0;
+            }
+        }
+        
+        //Wypełnij szkic planu rezerwacji
+        $plan = array(0,0,0,0,0,0,0,0,0,0,0,0,0);
+        foreach ($model[$day] as $key => $value){
+            for($i = $value['start']; $i < $value['start'] + $value['duration']; $i++){
+                $plan[$i-1] = 1;
+            }
+        }
+        
+        //Sprawdz czy nowa rezerwacja nie zaczyna sie w trakcie trwania innej rezerwacji
+        for($i = $startHour; $i < $startHour + $duration; $i++){
+            if($plan[$i-1] != 0){
+                $this->addFlash(
+                    'danger',
+                    'O podanym czasie trwa inna rezerwacja.'
+                );
+                return 0;
+            }
+        }
+        
+        return 1;
     }
 }
