@@ -1,13 +1,115 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Lista sal</h1>
+    <h1 class="">Lista sal Akademii Muzycznej</h1>
     <hr/>
-    {% for classroom in classrooms %}
-        <div>
-            <h3>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h3>
-            <p>Nazwa sali: {{ classroom.name }}</p>
-        </div>
-    {% endfor %}
+
+    <p>
+	  
+	</p>
+	<div class="row">
+	  <div class="col-md-6">
+	  <h3 class="building-title">BUDYNEK A</h3>
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">PARTER</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample1">
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '0' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	    </div>
+	    <br/>
+
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">I PIĘTRO</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample2">
+
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '1' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	     </div>
+	     <br/>
+
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">II PIĘTRO</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample3">
+
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '2' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	     </div>
+		<br/>
+
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">III PIĘTRO</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample4">
+
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '3' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	     </div>
+	  </div>
+
+
+	   <div class="col-md-6">
+	  <h3 class="building-title">BUDYNEK B</h3>
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">PARTER</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample5">
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '4' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	    </div>
+	    <br/>
+
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample6" aria-expanded="false" aria-controls="multiCollapseExample6">I PIĘTRO</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample6">
+
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '5' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	     </div>
+	     <br/>
+
+	  <a class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample7" aria-expanded="false" aria-controls="multiCollapseExample7">II PIĘTRO</a>
+	    <div class="collapse multi-collapse" id="multiCollapseExample7">
+
+	      <div class="card card-body">
+	        {% for classroom in classrooms %}
+		    	{% if classroom.floor == '6' %}
+		            <h4>Nr: <a href="{{ path('classroom', {'id' : classroom.id }) }}">{{ classroom.number }}</a></h4>
+		            <p class="name-classroom">Nazwa sali: {{ classroom.name }}</p>
+        		{% endif %}
+    		{% endfor %}
+	      </div>
+	     </div>
+		
+	  </div>
+	</div>
+
 {% endblock %}
 

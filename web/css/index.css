@@ -44,7 +44,6 @@ nav.navbar.navbar-default.navbar-inverse{
 
 
 .login-href{
-	font-weight: bold;
     height: 45px;
 }
 
@@ -114,4 +113,32 @@ nav.navbar.navbar-default.navbar-inverse{
 
 .flash-success{
     display: none;
+}
+
+.name-classroom{
+    margin-top: -10px;
+}
+
+.button-floor{
+    margin-bottom: 10px;
+}
+
+.title-text-center{
+    text-align: center;
+}
+
+.building-title{
+    margin-bottom: 30px;
+}
+
+.floor-data-toggle{
+    color: black;
+}
+
+a.floor-data-toggle:active, a.floor-data-toggle:hover a.floor-data-toggle:focus {
+    color: black !important;
+}
+
+a:focus, a:hover {
+    text-decoration: none !important;
 }
