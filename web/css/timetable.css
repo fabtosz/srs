@@ -9,3 +9,10 @@
 .srs_timetable th {
     text-align: center;
 }
+
+.reservation-info {
+	margin: 0px; 
+	padding: 0px; 
+	overflow-y: auto; 
+	font-size: 11px;
+}

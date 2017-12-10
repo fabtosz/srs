@@ -137,13 +137,16 @@ class DefaultController extends Controller
             $overload = $reservation->getOverload();
             $genre = $reservation->getGenre();
             $dateAt = $reservation->getDate();
-            
+            $user = $reservation->getUser();
+            $title = $reservation->getTitle();
+
             array_push($timetableModel[$day], array(
                 'start' => $start, 
+                'user' => $user,
+                'title' => $title,
                 'duration' => $duration, 
                 'overload' => $overload,
                 'genre' => $genre,
-                'dateAt' => $dateAt
                 ));
             
         }

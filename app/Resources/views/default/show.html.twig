@@ -21,15 +21,38 @@
         {# Rysuj rezerwacje #}
         <tr>
             {% if reservation.duration == 1 %}
-                <td bgcolor="#CFA676">
-                    
-                    <div style="margin: 0px; padding: 0px; overflow-y: auto; height:65px;">REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/></div>
+                <td bgcolor=" 
+                    {% if reservation.genre == 'Wykład'%}#cc66ff
+                    {% elseif reservation.genre == 'Ćwiczenia'%}#ffff66
+                    {% elseif reservation.genre == 'Próba'%}#5050ff
+                    {% elseif reservation.genre == 'Orkiestra'%}#99ff66
+                    {% elseif reservation.genre == 'Egzamin'%}#ff5050
+                    {% endif %}">
+                    <div class="reservation-info" style="height:65px;">
+                        <b>{{ reservation.title }}<br/></b>
+                        Forma zajęć: {{ reservation.genre }}<br/>
+                        Obciążenie: {{ reservation.overload }}<br/>
+                        Zarezerwowane przez: {{ reservation.user }}<br/>
+                    </div>
                 </td>
                 <td style="visibility:hidden; width: 1px; border:0px;"></td>
                 {# </div> #}
                 {% set cells = cells + 1 %}
             {% else %} 
-                <td rowspan="{{ reservation.duration }}" bgcolor="#CFA676">Rezerwacja</td>{% set rowspan = (reservation.duration) %}
+                <td rowspan="{{ reservation.duration }}" bgcolor=" 
+                    {% if reservation.genre == 'Wykład'%}#cc66ff
+                    {% elseif reservation.genre == 'Ćwiczenia'%}#ffff66
+                    {% elseif reservation.genre == 'Próba'%}#ff9933
+                    {% elseif reservation.genre == 'Orkiestra'%}#99ff66
+                    {% elseif reservation.genre == 'Egzamin'%}#ff5050
+                    {% endif %}">
+                <div class="reservation-info" style="height: {{ (reservation.duration * 70) - 5 }};">
+                        <b>{{ reservation.title }}<br/></b>
+                        Forma zajęć: {{ reservation.genre }}<br/>
+                        Obciążenie: {{ reservation.overload }}<br/>
+                        Zarezerwowane przez: {{ reservation.user }}<br/>
+                    </div>
+                </td>{% set rowspan = (reservation.duration) %}
                 <td style="visibility:hidden; width: 1px; border:0px;"></td>
                 {% set cells = cells + 1 %}
                 {% for i in 1..(rowspan - 1)%}

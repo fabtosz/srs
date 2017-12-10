@@ -55,6 +55,13 @@ class Reservation
     /************************************************/
     /**
      *
+     * @ORM\Column(name="title", type="string")
+     */
+    private $title;
+    /************************************************/
+    /************************************************/
+    /**
+     *
      * @ORM\Column(name="duration", type="smallint")
      */
     private $duration;
@@ -218,6 +225,23 @@ class Reservation
     public function getOverload()
     {
         return $this->overload;
+    }
+    /***************************************/
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
     /***************************************/
 }
