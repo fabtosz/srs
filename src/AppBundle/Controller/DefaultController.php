@@ -125,8 +125,21 @@ class DefaultController extends Controller
             $start = ($reservation->getHour()->format('H')) - 7;
             $duration = $reservation->getDuration();
             $day = strtolower($reservation->getDate()->format('l'));
-            
-            array_push($timetableModel[$day], array('start' => $start, 'duration' => $duration));
+            /*** Dodatkowe informacje */
+            $overload = $reservation->getOverload();
+            $genre = $reservation->getGenre();
+            $dateAt = $reservation->getDate();
+            $user = $reservation->getUser();
+            $title = $reservation->getTitle();
+
+            array_push($timetableModel[$day], array(
+                'start' => $start, 
+                'user' => $user,
+                'title' => $title,
+                'duration' => $duration, 
+                'overload' => $overload,
+                'genre' => $genre,
+                ));
             
         }
         
