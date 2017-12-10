@@ -179,7 +179,7 @@ class DefaultController extends Controller
         }
         
         //Sprawdz czy nowa rezerwacja nie zaczyna sie w trakcie trwania innej rezerwacji
-        for($i = $startHour; $i < $startHour + $startHour; $i++){
+        for($i = $startHour; $i < $startHour + $duration; $i++){
             if($plan[$i-1] != 0){
                 $this->addFlash(
                     'danger',
