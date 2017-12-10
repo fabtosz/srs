@@ -4,12 +4,24 @@
 {% endblock %}
 
 {% block body %}
-    <h1>System rezerwacji sal</h1>
     
-    Witaj na stronie systemu rezerwacji sal!
+    <h2>Witaj na stronie systemu rezerwacji sal Akademii Muzycznej.</h2>
     
     <br/>
+
+    <p>Biuro Spraw Studenckich dokonuje rezerwacji sal dla grup 25-to osobowych i większych.
+    <br/><br/>
+    Rezerwacji sali może dokonać:
+    <ul>
+	<li> każdy student,
+	<li> prowadzący zajęcia,
+	<li> pracownik dziekanatu.
+	</ul>
+	Rejestracja użytkownika zostaje dokonana na podstawie adresu e-mail oraz nazwy użytkownika, którym jest nr uczelniany studenta lub pracownika uczelni.
+	<br/>
+	Przed dokonaniem rezerwacji sali należy sprawdzić jej dostępność w systemie.
+	</p>
     
-    <a href="{{ path('list_classroom')}}">Lista sal</a>
+    <a href="{{ path('list_classroom')}}">Przejdź do listy sal</a>
 {% endblock %}
 
