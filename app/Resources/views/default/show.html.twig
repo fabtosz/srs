@@ -86,20 +86,10 @@
 {% endblock %}
 
 {% block body %}
+<br/>
+<br/>
     <!-- Trigger the modal with a button -->
-
-
-
-    <h1>Sala {{ classroom.number }}</h1>
-    
-    
-
-    <div>
-        <p>{{ classroom.name }}</p>
-        
-        <a href="{{ path('list_classroom')}}" class="pull-right">Wróć do listy sal</a>
-        <hr/>
-        {# Flash message #}
+ {# Flash message #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ label }}">
@@ -107,29 +97,59 @@
             </div>
         {% endfor %}
     {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+              <h1>Sala {{ classroom.number }}</h1>
     
-        <h5>
-            <b>{{ currentDate|date('d F Y') }}</b>
-            --  
-            <b>{{ currentDate|date_modify("+7 day")|date('d F Y') }}</b>
-            <a href="#" data-toggle="modal" data-target="#myModal">Wybierz</a>
-        </h5> 
-        
-        <h4>Zarezerwuj tę salę</h4>
-        
-        {% if app.user %}
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
+            <h4>{{ classroom.name }}</h4>
             
-                <button class="btn btn-primary">Rezerwuj</button>
-            {{ form_end(form) }}
-        {% else %}
-            <p>Rezerwacji mogą dokonać tylko zalogowani użytkownicy. <a href="{{ path('fos_user_security_login')}}">Zaloguj się</a></p>
-        {% endif %}
+
+            <hr/>
+            <a style="font-size: 15px;" class="floor-data-toggle" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">ZAREZERWUJ TĘ SALĘ <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
+
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="card card-body">
+             {% if app.user %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                
+                    <button class="btn btn-primary">Rezerwuj</button>
+                {{ form_end(form) }}
+            {% else %}
+                <p>Rezerwacji mogą dokonać tylko zalogowani użytkownicy. <a href="{{ path('fos_user_security_login')}}">Zaloguj się</a></p>
+            {% endif %}
+          </div>
+        </div>
+        <br/>
+        <br/>
+            
+           
+           
         
+            
+        </div>
+        <div class="col-sm-6" style="margin-top: 55px;margin-bottom: 20px;">
+
+        <a href="{{ path('list_classroom')}}" class="pull-right" style="margin-right: 25%;">Wróć do listy sal</a>
+            
+
+
+
+
+        </div>
+    </div>
+</div>
+
+ <h5>
+                <b>{{ currentDate|date('d F Y') }}</b>
+                --  
+                <b>{{ currentDate|date_modify("+7 day")|date('d F Y') }}</b>
+                <a href="#" data-toggle="modal" data-target="#myModal">Wybierz</a>
+            </h5> 
+
+  
         
-        
-        <hr/>
         <div class="container">
         <div class="row">
 
