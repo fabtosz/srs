@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% macro timetable(day)%}
+    <div id="fabtosz-container" style="overflow-y: auto;">
     <table class="srs_timetable"> 
     {% set cells = 0 %}
     {% for reservation in day %}
@@ -20,8 +21,12 @@
         {# Rysuj rezerwacje #}
         <tr>
             {% if reservation.duration == 1 %}
-                <td bgcolor="#CFA676">Rezerwacja</td>
+                <td bgcolor="#CFA676">
+                    
+                    <div style="margin: 0px; padding: 0px; overflow-y: auto; height:65px;">REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/>REZERWACJAREZ<br/></div>
+                </td>
                 <td style="visibility:hidden; width: 1px; border:0px;"></td>
+                {# </div> #}
                 {% set cells = cells + 1 %}
             {% else %} 
                 <td rowspan="{{ reservation.duration }}" bgcolor="#CFA676">Rezerwacja</td>{% set rowspan = (reservation.duration) %}
@@ -46,6 +51,7 @@
         {% endfor %}
     {% endif %}
     </table> 
+    </div>
 {% endmacro %}
 
 {% import _self as my_macro %}
@@ -58,7 +64,6 @@
 
 {% block body %}
     <!-- Trigger the modal with a button -->
-
 
 
 
