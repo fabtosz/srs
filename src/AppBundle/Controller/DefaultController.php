@@ -35,8 +35,6 @@ class DefaultController extends Controller
         ));
     }
     
-    /* * ("/classroom/{id}/week/{week}", name="classroom", defaults={"week"=null})*/
-    
     /**
      * @Route("/classroom/{id}", name="classroom")
      */
@@ -110,6 +108,26 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reservation = $em->getRepository(Reservation::class)->find($id);
+
+        if (!$reservation) {
+            throw $this->createNotFoundException(
+                'No reservation found for id '.$id
+            );
+        }
+
+        $em->remove($reservation);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
+    }
+    
     private function prepareTimetableModel($reservations){
         
         $timetableModel = array(
@@ -122,6 +140,7 @@ class DefaultController extends Controller
         
         foreach($reservations as $reservation){
             
+            $id = $reservation->getId();
             $start = ($reservation->getHour()->format('H')) - 7;
             $duration = $reservation->getDuration();
             $day = strtolower($reservation->getDate()->format('l'));
@@ -133,6 +152,7 @@ class DefaultController extends Controller
             $title = $reservation->getTitle();
 
             array_push($timetableModel[$day], array(
+                'id' => $id,
                 'start' => $start, 
                 'user' => $user,
                 'title' => $title,
