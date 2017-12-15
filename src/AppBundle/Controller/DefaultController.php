@@ -70,8 +70,6 @@ class DefaultController extends Controller
         
         $timetableModel = $this->prepareTimetableModel($reservations);
         
-        
-        //dump($datesOfWeeks); //Do zrbienia linków tygodni
         if($user = $this->getUser()){
             
             $reservation = new Reservation();
@@ -115,7 +113,9 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $reservation = $em->getRepository(Reservation::class)->find($id);
-
+        
+        $classroomId = $reservation->getClassroom()->getId();
+        
         if (!$reservation) {
             throw $this->createNotFoundException(
                 'No reservation found for id '.$id
@@ -125,7 +125,12 @@ class DefaultController extends Controller
         $em->remove($reservation);
         $em->flush();
 
-        return $this->redirectToRoute('homepage');
+        $this->addFlash(
+                'warning',
+                'Usunięto rezerwację.'
+            );
+        
+        return $this->redirectToRoute('classroom', array('id' => $classroomId));
     }
     
     private function prepareTimetableModel($reservations){
@@ -182,8 +187,7 @@ class DefaultController extends Controller
         $startHour = $toValidate->getHour()->format('H') - 7;
         $duration = $toValidate->getDuration();
         $overload = $toValidate->getOverload();
-        dump($overload);
-        dump($classroom->getOverload());
+        
         //Sprawdż czy czas nie przekracza limitu w planie
         $availbaleHours = 14 - $startHour;
         if($duration > $availbaleHours){
