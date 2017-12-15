@@ -51,6 +51,13 @@ class Classroom
     private $floor;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="overload", type="smallint")
+     */
+    private $overload;
+    
+    /**
     * @var
     * 
     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="classroom")  
@@ -192,5 +199,22 @@ class Classroom
     public function getFloor()
     {
         return $this->floor;
+    }
+    
+    public function setOverload($overload)
+    {
+        $this->overload = $overload;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getOverload()
+    {
+        return $this->overload;
     }
 }

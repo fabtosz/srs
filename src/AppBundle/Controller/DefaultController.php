@@ -83,7 +83,7 @@ class DefaultController extends Controller
             $form = $this->createForm(ReservationType::class, $reservation);
             $form->handleRequest($request);
             
-            if($form->isValid() && $this->validate($reservation, $timetableModel)){
+            if($form->isValid() && $this->validate($reservation, $timetableModel, $classroom)){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($reservation);
                 $em->flush();
@@ -147,7 +147,7 @@ class DefaultController extends Controller
         
     }
     
-    private function validate($toValidate, $model){
+    private function validate($toValidate, $model, $classroom){
         
         $day = strtolower($toValidate->getDate()->format('l'));
         
@@ -161,7 +161,9 @@ class DefaultController extends Controller
         
         $startHour = $toValidate->getHour()->format('H') - 7;
         $duration = $toValidate->getDuration();
-        
+        $overload = $toValidate->getOverload();
+        dump($overload);
+        dump($classroom->getOverload());
         //Sprawdż czy czas nie przekracza limitu w planie
         $availbaleHours = 14 - $startHour;
         if($duration > $availbaleHours){
@@ -200,6 +202,15 @@ class DefaultController extends Controller
                 );
                 return 0;
             }
+        }
+        
+        //Sprawdz obciazenie
+        if($overload > $classroom->getOverload()){
+            $this->addFlash(
+                'danger',
+                'Przekroczono obciążenie. Sala nie posiada takiej ilości miejsc.'
+            );
+            return 0;
         }
         
         return 1;
