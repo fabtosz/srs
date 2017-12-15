@@ -35,8 +35,6 @@ class DefaultController extends Controller
         ));
     }
     
-    /* * ("/classroom/{id}/week/{week}", name="classroom", defaults={"week"=null})*/
-    
     /**
      * @Route("/classroom/{id}", name="classroom")
      */
@@ -72,8 +70,6 @@ class DefaultController extends Controller
         
         $timetableModel = $this->prepareTimetableModel($reservations);
         
-        
-        //dump($datesOfWeeks); //Do zrbienia linków tygodni
         if($user = $this->getUser()){
             
             $reservation = new Reservation();
@@ -110,6 +106,33 @@ class DefaultController extends Controller
         ));
     }
     
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reservation = $em->getRepository(Reservation::class)->find($id);
+        
+        $classroomId = $reservation->getClassroom()->getId();
+        
+        if (!$reservation) {
+            throw $this->createNotFoundException(
+                'No reservation found for id '.$id
+            );
+        }
+
+        $em->remove($reservation);
+        $em->flush();
+
+        $this->addFlash(
+                'warning',
+                'Usunięto rezerwację.'
+            );
+        
+        return $this->redirectToRoute('classroom', array('id' => $classroomId));
+    }
+    
     private function prepareTimetableModel($reservations){
         
         $timetableModel = array(
@@ -122,6 +145,7 @@ class DefaultController extends Controller
         
         foreach($reservations as $reservation){
             
+            $id = $reservation->getId();
             $start = ($reservation->getHour()->format('H')) - 7;
             $duration = $reservation->getDuration();
             $day = strtolower($reservation->getDate()->format('l'));
@@ -133,6 +157,7 @@ class DefaultController extends Controller
             $title = $reservation->getTitle();
 
             array_push($timetableModel[$day], array(
+                'id' => $id,
                 'start' => $start, 
                 'user' => $user,
                 'title' => $title,
@@ -162,8 +187,7 @@ class DefaultController extends Controller
         $startHour = $toValidate->getHour()->format('H') - 7;
         $duration = $toValidate->getDuration();
         $overload = $toValidate->getOverload();
-        dump($overload);
-        dump($classroom->getOverload());
+        
         //Sprawdż czy czas nie przekracza limitu w planie
         $availbaleHours = 14 - $startHour;
         if($duration > $availbaleHours){
